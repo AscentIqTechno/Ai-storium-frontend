@@ -21,8 +21,9 @@ const ReelsScripts = () => {
               This Month
             </span>
             <h2 className="font-semibold text-xl xl:text-heading-5 text-dark">
-               Reels's Scripts
+              Reels&apos;s Scripts
             </h2>
+
           </div>
         </div>
 

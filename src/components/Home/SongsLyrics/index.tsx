@@ -21,8 +21,9 @@ const SongsLyrics = () => {
               This Month
             </span>
             <h2 className="font-semibold text-xl xl:text-heading-5 text-dark">
-            Songs's Lyrics
+              Songs&apos;s Lyrics
             </h2>
+
           </div>
         </div>
 
