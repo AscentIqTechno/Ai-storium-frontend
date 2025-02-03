@@ -1,7 +1,5 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -11,6 +9,11 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
+  
+    "target": "es2015",
+    "lib": ["dom", "esnext"],
+    "downlevelIteration": true,
+
     "jsx": "preserve",
     "incremental": true,
     "plugins": [
