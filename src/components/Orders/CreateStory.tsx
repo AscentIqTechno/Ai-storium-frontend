@@ -4,6 +4,10 @@ import html2pdf from "html2pdf.js";
 import axios from "axios";
 import "antd/dist/reset.css";
 import Image from "next/image";
+import {
+  SettingOutlined
+} from '@ant-design/icons';
+import PromptSettingsModal from "./PromptSettingsModal";
 
 const { Step } = Steps;
 
@@ -25,14 +29,17 @@ const CreateStory = () => {
   const [storyPrompt, setStoryPrompt] = useState("");
   const [generatedStory, setGeneratedStory] = useState("");
   const [pdfUrl, setPdfUrl] = useState(null); // Store the generated PDF URL
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [promptSettings, setPromptSettings] = useState(null);
+  console.log(promptSettings,"promptSettings")
 
   const contentRef = useRef(null);
 
-  const analyzeStoryPrompt = (prompt) => {
-    const genreMatch = prompt.match(/(Action|Thriller|Romance|Comedy|Drama|Fantasy|Sci-Fi|Horror)/i);
+  const analyzeStoryPrompt = (prompt,promptSettings) => {
+    const genreMatch = prompt.match(promptSettings?.category);
     const settingMatch = prompt.match(/(INT\.|EXT\.) (.*?)-/i);
     const characterMatches = [...prompt.matchAll(/([A-Z]+):/g)].map(match => match[1]);
-
+ 
     return {
       genre: genreMatch ? genreMatch[1] : "Unknown",
       setting: settingMatch ? settingMatch[2].trim() : "Unknown",
@@ -40,17 +47,21 @@ const CreateStory = () => {
     };
   };
 
+  const openModal = () => setIsModalVisible(true);
+  const handleApplySettings = (settings) => setPromptSettings(settings);
+
+
   const handleGenerateStory = async () => {
     let screenplay = storyPrompt;
     let currentWordCount = 0;
     let referenceContent = screenplay;
 
-    const analysis = analyzeStoryPrompt(storyPrompt);
-    console.log("Story Analysis:", analysis);
+    const analysis = analyzeStoryPrompt(storyPrompt,promptSettings);
+   
 
-    const enhancedPrompt = `You are an expert screenplay writer. Write in standard screenplay format.
+    const enhancedPrompt = `You are an expert screenplay writer. Write in standard screenplay format with all in ${promptSettings?.language}.
   Genre: ${analysis.genre}
-  Setting: ${analysis.setting}
+  Setting: ${analysis.setting,promptSettings}
   Main Characters: ${analysis.characters.join(", ")}
   
   Continue the screenplay from here:
@@ -217,7 +228,7 @@ const CreateStory = () => {
   return (
     <div className="p-6 max-w-4xl mx-auto bg-white shadow-md rounded-lg">
       <h1 className="text-2xl font-bold text-gray-800 mb-4">
-        Use AI to Generate Your Own Story Script
+        Use AI to Generate Your Own Story Script <SettingOutlined  className="mx-4" onClick={openModal} />
       </h1>
       <Steps current={current}>
         {steps.map((step, index) => (
@@ -241,6 +252,11 @@ const CreateStory = () => {
           Next
         </Button>}
       </div>
+      <PromptSettingsModal 
+  visible={isModalVisible} 
+  onClose={() => setIsModalVisible(false)} 
+  onApply={handleApplySettings} 
+/>
     </div>
   );
 };
