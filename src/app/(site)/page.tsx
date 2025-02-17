@@ -1,5 +1,6 @@
 import Home from "@/components/Home";
 import { Metadata } from "next";
+import "antd/dist/reset.css"; // Import Ant Design styles
 
 export const metadata: Metadata = {
   title: "NextCommerce | Nextjs E-commerce template",
