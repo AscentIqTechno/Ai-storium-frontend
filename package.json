@@ -22,6 +22,7 @@
     "axios": "^1.7.9",
     "eslint": "8.49.0",
     "eslint-config-next": "13.4.19",
+    "franc-min": "^6.2.0",
     "html2canvas": "^1.4.1",
     "html2pdf.js": "^0.10.2",
     "jspdf": "^2.5.2",
