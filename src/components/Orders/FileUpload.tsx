@@ -8,7 +8,7 @@ import * as mammoth from "mammoth"; // Import for DOCX processing
 
 const { Dragger } = Upload;
 
-const FileUpload: React.FC = () => {
+const FileUpload: React.FC<{ setStoryPrompt: any }> = ({ setStoryPrompt }) => {
   const [fileContent, setFileContent] = useState<string>("");
   const [fileName, setFileName] = useState<string>("");
   const [pdfjsLib, setPdfjsLib] = useState<any>(null);
@@ -102,6 +102,7 @@ const FileUpload: React.FC = () => {
       }
 
       setFileContent(content);
+      setStoryPrompt(content);
       setFileName(file.name);
       message.success(`${file.name} uploaded successfully.`);
     } catch (error) {

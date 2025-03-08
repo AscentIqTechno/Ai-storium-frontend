@@ -151,7 +151,7 @@ const CreateStory = () => {
               onChange={(e) => setStoryPrompt(e.target.value)}
             ></textarea>
           ) : (
-            <FileUpload />
+            <FileUpload  setStoryPrompt={setStoryPrompt}/>
           )}
           <br />
           <br />
